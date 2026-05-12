@@ -1,0 +1,8 @@
+{
+  "name": "p5-starter",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/p5": "^1.7.7"
+  }
+}

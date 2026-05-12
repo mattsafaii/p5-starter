@@ -1,0 +1,28 @@
+#!/bin/bash
+set -eu
+
+name="${1:-}"
+
+if [ -z "$name" ]; then
+	echo "Usage: ./new <sketch-name>"
+	exit 1
+fi
+
+if ! [[ "$name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+	echo "Error: sketch name must contain only letters, numbers, hyphens, and underscores"
+	exit 1
+fi
+
+if [ -e "$name" ]; then
+	echo "Error: '$name' already exists"
+	exit 1
+fi
+
+mkdir "$name"
+cp template/index.html "$name/"
+cp template/sketch.js "$name/"
+sed "s|<title>Sketch</title>|<title>$name</title>|" "$name/index.html" > "$name/index.html.tmp"
+mv "$name/index.html.tmp" "$name/index.html"
+
+echo "Created $name/"
+echo "Open $name/index.html in a browser to view."
